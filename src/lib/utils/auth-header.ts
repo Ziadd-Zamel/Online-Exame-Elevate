@@ -1,11 +1,13 @@
 import "server-only";
 
 import { cookies } from "next/headers";
-import { AUTH_COOKIE } from "../constants/auth.constant";
+import { AUTH_COOKIE, VERCEL_AUTH_COOKIE } from "../constants/auth.constant";
 import { decode, JWT } from "next-auth/jwt";
 
 export async function getAuthHeader() {
-  const tokenCookie = cookies().get(AUTH_COOKIE)?.value;
+  const tokenCookie =
+    cookies().get(AUTH_COOKIE)?.value ||
+    cookies().get(VERCEL_AUTH_COOKIE)?.value;
   let JWT: JWT | null = null;
 
   try {
