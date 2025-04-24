@@ -1,74 +1,42 @@
-import { withAuth } from 'next-auth/middleware';
-import createMiddleware from 'next-intl/middleware';
-import { NextRequest, NextResponse } from 'next/server';
-import { routing } from './i18n/routing';
-import { getToken } from 'next-auth/jwt';
+import { NextRequest, NextResponse } from "next/server";
+import { getToken } from "next-auth/jwt";
 
-const authPages = ['/auth/login', '/auth/register', '/auth/password'];
-const passwordRoutes = [
-  '/auth/password/email',
-  '/auth/password/reset',
-  '/auth/password/verify',
+// Define auth routes - the only routes accessible without authentication
+const authRoutes = [
+  "/auth/login",
+  "/auth/register",
+  "/auth/password",
+  "/auth/password/email",
+  "/auth/password/reset",
+  "/auth/password/verify",
 ];
-const publicPages = ['/', 'dashboard', ...authPages, ...passwordRoutes];
-
-const handleI18nRouting = createMiddleware(routing);
-
-const authMiddleware = withAuth(
-  // Note that this callback is only invoked if
-  // the `authorized` callback has returned `true`
-  // and not for pages listed in `pages`.
-  function onSuccess(req) {
-    return handleI18nRouting(req);
-  },
-  {
-    callbacks: {
-      authorized: ({ token }) => token != null,
-    },
-    pages: {
-      signIn: '/auth/login',
-    },
-  }
-);
 
 export default async function middleware(req: NextRequest) {
-  // Variables
   const token = await getToken({ req });
-  const publicPathnameRegex = RegExp(
-    `^(/(${routing.locales.join('|')}))?(${publicPages
-      .flatMap((p) => (p === '/' ? ['', '/'] : p))
-      .join('|')})/?$`,
-    'i'
+  const path = req.nextUrl.pathname;
+
+  // Check if the current path is an auth route
+  const isAuthRoute = authRoutes.some(
+    (route) => path === route || path.startsWith(`${route}/`)
   );
-  const authPathnameRegex = RegExp(
-    `^(/(${routing.locales.join('|')}))?(${authPages
-      .flatMap((p) => (p === '/' ? ['', '/'] : p))
-      .join('|')})/?$`,
-    'i'
-  );
-  const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
-  const isAuthPage = authPathnameRegex.test(req.nextUrl.pathname);
 
-  if (isPublicPage) {
-    // Redirect to homepage if user is authenticated and attempting to access an auth page
-    if (token && isAuthPage) {
-      const redirectUrl = new URL('/', req.nextUrl.origin);
-
-      // Include current search params
-      Object.entries(req.nextUrl.searchParams).map(([key, value]) =>
-        redirectUrl.searchParams.set(key, value)
-      );
-
-      return NextResponse.redirect(redirectUrl);
-    }
-
-    return handleI18nRouting(req);
-  } else {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return (authMiddleware as any)(req);
+  // If user is logged in and trying to access auth pages, redirect to home
+  if (token && isAuthRoute) {
+    return NextResponse.redirect(new URL("/", req.url));
   }
+
+  // If user is not logged in and not on auth routes, redirect to login
+  if (!token && !isAuthRoute) {
+    // Store the current URL to redirect back after login
+    const callbackUrl = encodeURIComponent(req.url);
+    return NextResponse.redirect(
+      new URL(`/auth/login?callbackUrl=${callbackUrl}`, req.url)
+    );
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/((?!api|_next|.*\\..*).*)'],
+  matcher: ["/((?!api|_next|.*\\..*).*)"],
 };
