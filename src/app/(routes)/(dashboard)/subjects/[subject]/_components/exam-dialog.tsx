@@ -39,6 +39,9 @@ export default async function ExamDialog({ examId }: QuestionsDialogProps) {
   // Determining if the questions is not empty
   const isEmpty = questions.length === 0;
 
+  if (!exam) {
+    return;
+  }
   return (
     <Dialog>
       {/* Trigger */}
