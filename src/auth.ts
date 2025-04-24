@@ -29,12 +29,11 @@ export const authOptions: NextAuthOptions = {
 
         const payload: APIResponse<LoginResponse> = await response.json();
 
-        // Throw an auth error if the login has failed
         if ("code" in payload) {
+          console.log(payload);
           throw new AuthenticationError(payload.message);
         }
 
-        // Return the user to be encoded using JWT callback
         return {
           id: payload.user._id,
           user: payload.user,
@@ -45,7 +44,6 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     jwt: ({ token, user }) => {
-      // If the user exists it was a successful login attempt, so save the new user data in the cookies
       if (user) {
         token.user = user.user;
         token.token = user.token;
@@ -54,7 +52,6 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     session: ({ session, token }) => {
-      // Decode the user data from the token cookie and store it in the session object
       session.user = token.user;
 
       return session;
