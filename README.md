@@ -1,47 +1,139 @@
-This is a [Next.js](https://nextjs.org) project initialized alongside most common community libraries for **Elevate** students. It shows how the structure of an enterprise business project should be, and how we can write clean code in React.js and Next.js.
+# Online Exam Platform - Elevate
 
-## Getting Started
+A modern, scalable online examination platform built with Next.js, designed to provide a seamless experience for both students and educators.
 
-**First**, install yarn package manager:
+![App Screenshot](public/assets/AppImage.png)
 
-```bash
-npm i -g yarn
+![Next.js](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![React Query](https://img.shields.io/badge/React_Query-FF4154?style=for-the-badge&logo=react-query&logoColor=white)
+
+## 🚀 Features
+
+- **Modern Authentication System**
+
+  - Secure login and registration
+  - Role-based access control
+  - Session management
+
+- **Interactive Dashboard**
+
+  - Real-time exam progress tracking
+  - Performance analytics
+  - Subject-wise organization
+
+- **Exam Management**
+
+  - Create and manage exams
+  - Question bank management
+  - Automatic grading system
+
+- **User Experience**
+  - Responsive design
+  - Dark/Light mode support
+  - Intuitive navigation
+
+## 📋 Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- Node.js (v18 or higher)
+- Yarn package manager
+- Git
+
+## 🛠️ Installation
+
+1. **Clone the repository**
+
+   ```bash
+   git clone [your-repository-url]
+   cd online-exam-elevate
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   yarn install
+   ```
+
+3. **Set up environment variables**
+   Create a `.env.local` file in the root directory with the following variables:
+
+   ```
+   NEXT_PUBLIC_API_URL=your_api_url
+   NEXTAUTH_SECRET=your_secret_key
+   NEXTAUTH_URL=http://localhost:3000
+   ```
+
+4. **Start the development server**
+   ```bash
+   yarn dev
+   ```
+
+## 🏗️ Project Structure
+
+```
+src/
+├── app/                 # Next.js app router
+│   ├── (routes)/       # Main application routes
+│   │   ├── (dashboard)/# Dashboard features
+│   │   ├── auth/       # Authentication pages
+│   │   └── [...rest]/  # Catch-all routes
+│   └── api/            # API routes
+├── components/         # Reusable UI components
+├── lib/               # Utility functions and configurations
+└── styles/            # Global styles and Tailwind configuration
 ```
 
-**Second**, delete the `package-lock.json` file.
+## 🧩 Key Technologies
 
-**Third**, install all dependencies using yarn:
+- **Frontend Framework**: Next.js 14
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **State Management**: React Query
+- **UI Components**: ShadeCn
+- **Form Handling**: React Hook Form + Zod
+- **Authentication**: NextAuth.js
+
+## 🧪 Testing
 
 ```bash
-yarn install
+# Run tests
+yarn test
+
+# Run tests in watch mode
+yarn test:watch
 ```
 
-**Lastly**, run the project using yarn:
+## 📦 Build & Deployment
 
 ```bash
-yarn dev
+# Build for production
+yarn build
+
+# Start production server
+yarn start
 ```
 
-## Code Organization Guidelines
+## 🤝 Contributing
 
-Please ensure that the code in **hooks** and **components** is consistently organized in the following order:
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-1. **Translation** – Import and define any translation-related logic.
-2. **Navigation** – Define any navigation-related logic or hooks.
-3. **State** – Declare local or global state variables.
-4. **Context** – Use context providers and consumers.
-5. **Hooks** – Call custom and built-in React hooks.
-6. **Ref** – Declare and manage `ref` objects.
-7. **Queries** – Handle data fetching queries (e.g., using React Query).
-8. **Mutation** – Handle data mutation logic (e.g., using React Query).
-9. **Form & Validation** – Set up form state and validation (e.g., using `react-hook-form`, `zod`).
-10. **Variables** – Define any constants or variables (this is flexible based on context).
-11. **Functions** – Define utility functions or component-specific functions.
-12. **Effects** – Use `useEffect` or similar side-effect hooks at the end.
+## 📄 License
 
-Following this order helps maintain code consistency, improves readability, and makes it easier to debug and scale the project.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Resources
+## 📞 Support
 
-1. **Project #1 - Exam App**: [Figma Design](https://www.figma.com/design/jJl1SNjeasOAF0WSlK8epD/Exam-Online-Elevate?node-id=0-1&t=S7I2ScakQLuXTMqI-1) - [API Docs](https://documenter.getpostman.com/view/5709532/2sAXxMfYUf)
-2. **Project #2 - Flower App**: [Figma Design](https://www.figma.com/design/QqsPTLi6eOzPXy3uueAg67/Rose?node-id=0-1&t=5euUht8bw4zd4s8z-1) - [API Docs](https://documenter.getpostman.com/view/5709532/2sAY52cKZg)
+For support, email [ziadzzamel@gmail.com] or join our Slack channel.
+
+## 🙏 Acknowledgments
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [React Query Documentation](https://tanstack.com/query/latest)
