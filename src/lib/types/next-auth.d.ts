@@ -9,6 +9,7 @@ declare module "next-auth" {
    */
   interface User {
     user: {
+      _id: string;
       username: string;
       firstName: string;
       lastName: string;
@@ -16,7 +17,7 @@ declare module "next-auth" {
       phone: string;
       role: string;
       isVerified: boolean;
-    } & DatabaseProperies;
+    };
     token: string;
   }
 
