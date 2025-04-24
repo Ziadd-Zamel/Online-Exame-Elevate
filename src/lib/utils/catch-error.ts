@@ -1,32 +1,26 @@
-import { AppError, AuthenticationError, AuthorizationError } from "./app-errors";
-
-export default async function catchError<T, E extends new (message?: string) => AuthenticationError | AuthorizationError | AppError>(
-  promise: Promise<APIResponse<T>>,
-  errorsToCatch?: E[] | null
-): Promise<[SuccessfulResponse<T>, null] | [null, InstanceType<E>]> {
+/**
+ * Executes an asynchronous callback function and catches any errors.
+ * If successful, returns the payload with a `null` error.
+ * If there's an error, returns `null` payload and the error message.
+ *
+ * @template T - The type of data expected in the API response payload.
+ * @param callback - An async function that returns a Promise of type `APIResponse<T>`.
+ * @returns A tuple containing either the successful payload and `null`, or `null` and the error message.
+ */
+export default async function catchError<T>(
+  callback: () => Promise<APIResponse<T>>
+): Promise<[SuccessfulResponse<T>, null] | [null, string]> {
   try {
-    const data = await promise;
+    // Execute the callback function to get the payload
+    const payload = await callback();
 
-    if ("code" in data) {
-      if (data.code === 401) throw new AuthenticationError(data.message, data.code);
+    // If the payload contains a `code` property, throw an error with the message
+    if ("code" in payload) throw new Error(payload.message);
 
-      if (data.code === 403) throw new AuthorizationError(data.message, data.code);
-
-      throw new AppError(data.message, data.code);
-    }
-
-    return [data, null];
-  } catch (err) {
-    const error = err as InstanceType<E>;
-
-    if (!errorsToCatch) {
-      return [null, error];
-    }
-
-    if (errorsToCatch.some((e) => error instanceof e)) {
-      return [null, error];
-    }
-
-    throw error;
+    // Return the payload with `null` error
+    return [payload, null];
+  } catch (error) {
+    // If an error occurs during execution, return `null` payload and the error message
+    return [null, (error as Error).message];
   }
 }
