@@ -11,6 +11,7 @@ import { socialButtons } from "@/lib/constants/data.constant";
 
 // Icons
 import { ChevronDown } from "lucide-react";
+
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <main className="flex justify-center lg:justify-start w-full lg:gap-32 xl:gap-40">

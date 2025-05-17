@@ -11,7 +11,7 @@ export async function getSubjects(limit?: number) {
     }
   );
 
-  const payload: APIResponse<PaginatedResponse<{ subjects: subject[] }>> =
+  const payload: APIResponse<PaginatedResponse<{ subjects: Subject[] }>> =
     await response.json();
 
   return payload;

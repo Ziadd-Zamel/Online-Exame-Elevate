@@ -1,5 +1,6 @@
 import { getAuthHeader } from "../utils/auth-header";
-// Get all Exams
+
+// Get all exams
 export async function getExams() {
   const response = await fetch(`${process.env.API}/exams`, {
     headers: {
@@ -9,6 +10,7 @@ export async function getExams() {
 
   const payload: APIResponse<PaginatedResponse<{ exams: Exam[] }>> =
     await response.json();
+
   return payload;
 }
 
@@ -22,6 +24,7 @@ export async function getExamsBySubject(id: string) {
 
   const payload: APIResponse<PaginatedResponse<{ exams: Exam[] }>> =
     await response.json();
+
   return payload;
 }
 
