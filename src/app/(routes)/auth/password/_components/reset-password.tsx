@@ -41,12 +41,12 @@ export default function VerifyPassword() {
   });
 
   // Handle form submission
-  async function onSubmit(values: PasswordResetFields) {
+  function onSubmit(values: PasswordResetFields) {
     const sendData = {
       email: values.email,
       newPassword: values.newPassword,
     };
-    await resetPassword(sendData, {
+    resetPassword(sendData, {
       onSuccess: () => {
         router.push("/auth/login");
       },

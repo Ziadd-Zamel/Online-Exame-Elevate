@@ -44,7 +44,7 @@ export default async function QuestionsDialog() {
             ))}
           </Suspense>
           <Link
-            href={"subjects"}
+            href="subjects"
             className="font-medium text-primaryMain sm:hidden block text-2xl p-0"
           >
             View All

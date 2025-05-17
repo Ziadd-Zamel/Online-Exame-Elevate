@@ -3,9 +3,10 @@ import {
   FormItem,
   FormControl,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Control, FieldPath, FieldValues } from 'react-hook-form';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils/cn";
+import { Control, FieldPath, FieldValues } from "react-hook-form";
 
 interface TextFieldProps<
   TFieldValues extends FieldValues,
@@ -37,11 +38,12 @@ const TextField = <
               {...field}
               placeholder={placeholder}
               autoComplete={autoComplete}
-              className={`  rounded-lg h-14 placeholder:text-neutralGray bg-lightGray shadow-secondary ${
+              className={cn(
                 fieldState.error
-                  ? 'border-red-600 focus:border-none'
-                  : 'border-borderGray'
-              }`}
+                  ? "border-red-600 focus:border-none"
+                  : "border-borderGray",
+                "rounded-lg h-14 placeholder:text-neutralGray bg-lightGray shadow-secondary"
+              )}
             />
           </FormControl>
           <FormMessage />

@@ -39,7 +39,6 @@ export default function VerifyPassword() {
 
   // Handle form submission
   function onSubmit(values: VerifyPasswordFields) {
-    console.log(values);
     verfiyCode(
       {
         resetCode: values.resetCode,
@@ -47,7 +46,6 @@ export default function VerifyPassword() {
       {
         onSuccess: (data) => {
           const [payload, error] = data;
-          console.log(payload);
           if (error) {
             form.setError("resetCode", {
               message: "Reset code is invalid or has expired",
@@ -60,7 +58,6 @@ export default function VerifyPassword() {
         },
       }
     );
-    console.log(values);
   }
 
   return (

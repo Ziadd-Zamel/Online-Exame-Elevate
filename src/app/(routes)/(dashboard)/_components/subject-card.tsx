@@ -7,7 +7,7 @@ import Link from "next/link";
 
 // Types
 type SubjectCardProps = {
-  subject: subject;
+  subject: Subject;
 };
 
 const SubjectCard = ({ subject }: SubjectCardProps) => {
