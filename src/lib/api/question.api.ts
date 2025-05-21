@@ -1,6 +1,6 @@
 import { getAuthHeader } from "../utils/auth-header";
 
-// Get all Questoin on Exam
+// Get all questoin on exam
 export async function getQuestions(id: string) {
   const response = await fetch(`${process.env.API}/questions?exam=${id}`, {
     headers: {
@@ -13,7 +13,7 @@ export async function getQuestions(id: string) {
   return payload;
 }
 
-// Get User Questoin history
+// Get user questoin history
 export async function getQuestionsHistory() {
   const response = await fetch(`${process.env.API}/questions/history`, {
     headers: {

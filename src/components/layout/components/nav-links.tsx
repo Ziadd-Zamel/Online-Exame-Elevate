@@ -1,4 +1,5 @@
 "use client";
+
 import { MdSpaceDashboard } from "react-icons/md";
 import { MdHistory } from "react-icons/md";
 import { RiLogoutBoxFill } from "react-icons/ri";
@@ -8,10 +9,13 @@ import { usePathname, useParams, useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 
-const NavLinks = () => {
+export default function NavLinks() {
+  // Navigation
   const pathname = usePathname();
   const params = useParams();
   const router = useRouter();
+
+  // Navigation links
   const navLinks = [
     {
       href: `/`,
@@ -34,6 +38,7 @@ const NavLinks = () => {
       text: "Quiz History",
     },
   ];
+
   const isLinkActive = (linkHref: string): boolean => {
     // For dashboard (root route)
     if (
@@ -46,6 +51,7 @@ const NavLinks = () => {
     // For other routes
     return pathname === linkHref || pathname === `/${params.locale}${linkHref}`;
   };
+
   const handleLogout = async () => {
     const res = await signOut({
       redirect: false,
@@ -56,6 +62,7 @@ const NavLinks = () => {
       router.push(res.url);
     }
   };
+
   return (
     <>
       <div className="flex flex-col gap-5 md:gap-8 w-full">
@@ -100,6 +107,4 @@ const NavLinks = () => {
       </Button>
     </>
   );
-};
-
-export default NavLinks;
+}
